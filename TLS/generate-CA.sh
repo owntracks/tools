@@ -30,13 +30,14 @@
 
 set -e
 
+DIR=${TARGET:='.'}
 # A space-separated list of alternate hostnames (subjAltName)
 # may be empty ""
 ALTHOSTNAMES="broker.example.com foo.example.de"
 CA_ORG='/O=MQTTitude.org/emailAddress=nobody@example.net'
 CA_DN="/CN=An MQTT broker${CA_ORG}"
-CACERT=ca
-SERVER=server
+CACERT=${DIR}/ca
+SERVER=${DIR}/server
 SERVER_DN="/CN=$(hostname -f)$CA_ORG"
 keybits=2048
 openssl=$(which openssl)
@@ -93,7 +94,7 @@ fi
 
 if [ ! -f $SERVER.key ]; then
 	echo "--- Creating server key and signing request"
-	$openssl genrsa -out server.key $keybits
+	$openssl genrsa -out $SERVER.key $keybits
 	$openssl req -new \
 		-out $SERVER.csr \
 		-key $SERVER.key \
@@ -130,6 +131,7 @@ if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
 		-CA $CACERT.crt \
 		-CAkey $CACERT.key \
 		-CAcreateserial \
+		-CAserial "${DIR}/ca.srl" \
 		-out $SERVER.crt \
 		-days $days \
 		-extfile ${CNF} \
