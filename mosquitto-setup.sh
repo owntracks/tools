@@ -30,7 +30,7 @@
 
 set -e
 
-MOSQHOME=/tmp/mosquitto
+MOSQHOME=/tmp/mosquitto		# FIXME: find automagically
 MOSQCONF=mosquitto.conf
 MOSQPATH=$MOSQHOME/$MOSQCONF
 tstamp=$(date +%Y%m%d-%H%M%S)
@@ -45,7 +45,7 @@ fi
 TARGET=$MOSQHOME TLS/generate-CA.sh
 
 sed -Ee 's/^[ 	]+%%% //' <<!ENDMOSQUITTOCONF > $MOSQPATH
-	%%% allow_anonymous false
+	%%% # allow_anonymous false
 	%%% autosave_interval 1800
 	%%% 
 	%%% connection_messages true
