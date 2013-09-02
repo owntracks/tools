@@ -92,6 +92,7 @@ if [ ! -f $CACERT.crt ]; then
 	chmod 400 $CACERT.key
 	chmod 444 $CACERT.crt
 	chown $OWNER $CACERT.*
+	echo "Warning: the CA key is not encrypted; store it safely!"
 fi
 
 if [ ! -f $SERVER.key ]; then
