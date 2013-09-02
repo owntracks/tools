@@ -77,6 +77,7 @@ sed -Ee 's/^[ 	]+%%% //' <<!ENDMOSQUITTOCONF > $MOSQPATH
 	%%% listener 1883 127.0.0.1
 	%%% 
 	%%% listener 8883
+	%%% tls_version tlsv1
 	%%% cafile $MOSQHOME/ca.crt
 	%%% certfile $MOSQHOME/server.crt
 	%%% keyfile $MOSQHOME/server.key
