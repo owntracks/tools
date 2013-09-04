@@ -41,7 +41,7 @@ SERVER=${DIR}/server
 SERVER_DN="/CN=$(hostname -f)$CA_ORG"
 keybits=2048
 openssl=$(which openssl)
-OWNER=mosquitto
+MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
 
 function maxdays() {
 	nowyear=$(date +%Y)
@@ -91,7 +91,7 @@ if [ ! -f $CACERT.crt ]; then
 
 	chmod 400 $CACERT.key
 	chmod 444 $CACERT.crt
-	chown $OWNER $CACERT.*
+	chown $MOSQUITTOUSER $CACERT.*
 	echo "Warning: the CA key is not encrypted; store it safely!"
 fi
 
@@ -103,7 +103,7 @@ if [ ! -f $SERVER.key ]; then
 		-key $SERVER.key \
 		-subj "${SERVER_DN}"
 	chmod 400 $SERVER.key
-	chown $OWNER $SERVER.key
+	chown $MOSQUITTOUSER $SERVER.key
 fi
 
 if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
@@ -156,5 +156,5 @@ if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
 
 	rm -f $CNF
 	chmod 444 $SERVER.crt
-	chown $OWNER $SERVER.crt
+	chown $MOSQUITTOUSER $SERVER.crt
 fi

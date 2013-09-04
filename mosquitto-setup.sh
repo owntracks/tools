@@ -34,6 +34,8 @@ MOSQHOME=/tmp/mosquitto		# FIXME: find automagically
 MOSQCONF=mosquitto.conf
 MOSQPATH=$MOSQHOME/$MOSQCONF
 tstamp=$(date +%Y%m%d-%H%M%S)
+MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
+export MOSQUITTOUSER
 
 [ -d $MOSQHOME ] || mkdir $MOSQHOME
 
