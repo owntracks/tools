@@ -28,7 +28,16 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+#
+# Usage:
+#	./generate-CA.sh		creates ca.crt and server.{key,crt}
+#	./generate-CA.sh hostname	creates hostname.{key,crt}
 set -e
+
+host=$(hostname -f)
+if [ -n "$1" ]; then
+	host="$1"
+fi
 
 DIR=${TARGET:='.'}
 # A space-separated list of alternate hostnames (subjAltName)
@@ -37,8 +46,8 @@ ALTHOSTNAMES="broker.example.com foo.example.de"
 CA_ORG='/O=MQTTitude.org/emailAddress=nobody@example.net'
 CA_DN="/CN=An MQTT broker${CA_ORG}"
 CACERT=${DIR}/ca
-SERVER=${DIR}/server
-SERVER_DN="/CN=$(hostname -f)$CA_ORG"
+SERVER="${DIR}/${host}"
+SERVER_DN="/CN=${host}$CA_ORG"
 keybits=2048
 openssl=$(which openssl)
 MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
