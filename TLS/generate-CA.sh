@@ -39,6 +39,8 @@ if [ -n "$1" ]; then
 	host="$1"
 fi
 
+[ -z "$USER" ] && USER=root
+
 DIR=${TARGET:='.'}
 # A space-separated list of alternate hostnames (subjAltName)
 # may be empty ""
