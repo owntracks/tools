@@ -34,6 +34,8 @@
 #	./generate-CA.sh hostname	creates hostname.{key,crt}
 set -e
 
+export LANG=C
+
 host=$(hostname -f)
 if [ -n "$1" ]; then
 	host="$1"
