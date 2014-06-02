@@ -42,7 +42,7 @@ paths=( "/etc/mosquitto/conf.d/" )
 for i in "${path[@]}"
 do
 	if [ -d $i ]; then
-		$MOSQHOME = $i
+		export MOSQHOME=$i
 	fi
 done
 # Fall back to /tmp/mosquitto
