@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #(@)mosquitto-setup.sh - Create a basic Mosquitto configuration w/ TLS
 
 # Copyright (c) 2013 Jan-Piet Mens <jpmens()gmail.com>
@@ -30,13 +30,22 @@
 
 set -e
 
-MOSQHOME=/tmp/mosquitto		# FIXME: find automagically
+MOSQHOME=/tmp/mosquitto
 MOSQCONF=mosquitto.conf
 MOSQPATH=$MOSQHOME/$MOSQCONF
 tstamp=$(date +%Y%m%d-%H%M%S)
 MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
 export MOSQUITTOUSER
 
+# TODO Add more paths, this is the default location for the debian packages
+paths=( "/etc/mosquitto/conf.d/" )
+for i in "${path[@]}"
+do
+	if [ -d $i ]; then
+		export MOSQHOME=$i
+	fi
+done
+# Fall back to /tmp/mosquitto
 [ -d $MOSQHOME ] || mkdir $MOSQHOME
 
 if [ -f $MOSQPATH ]; then
