@@ -32,6 +32,14 @@
 # Usage:
 #	./generate-CA.sh		creates ca.crt and server.{key,crt}
 #	./generate-CA.sh hostname	creates hostname.{key,crt}
+#
+# Set the following optional environment variables before invocation
+# to add the specified IP addresses and/or hostnames to the subjAltName list
+# These contain white-space-separated values
+#
+#	IPLIST="172.13.14.15 192.168.1.1"
+#	HOSTLIST="a.example.com b.example.com"
+
 set -e
 
 export LANG=C
@@ -46,7 +54,8 @@ fi
 DIR=${TARGET:='.'}
 # A space-separated list of alternate hostnames (subjAltName)
 # may be empty ""
-ALTHOSTNAMES="broker.example.com foo.example.de"
+ALTHOSTNAMES=${HOSTLIST}
+ALTADDRESSES=${IPLIST}
 CA_ORG='/O=MQTTitude.org/emailAddress=nobody@example.net'
 CA_DN="/CN=An MQTT broker${CA_ORG}"
 CACERT=${DIR}/ca
@@ -83,6 +92,9 @@ function addresslist() {
 	done
 	ALIST="${ALIST}IP:127.0.0.1,IP:::1,"
 
+	for ip in $(echo ${ALTADDRESSES}); do
+		ALIST="${ALIST}IP:${ip},"
+	done
 	for h in $(echo ${ALTHOSTNAMES}); do
 		ALIST="${ALIST}DNS:$h,"
 	done
