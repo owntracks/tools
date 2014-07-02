@@ -66,6 +66,7 @@ function maxdays() {
 
 function getipaddresses() {
 	/sbin/ifconfig |
+		grep -v tunnel |
 		sed -En '/inet6? /p' |
 		sed -Ee 's/inet6? (addr:)?//' |
 		awk '{print $1;}' |
