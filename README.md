@@ -7,3 +7,7 @@ Shell script to create a default OwnTracks configuration for the Mosquitto broke
 ### TLS/
 
 Utility to create TLS CA Certificate and server certificate for OwnTracks
+
+### icinga/
+
+Icinga / Nagios check scripts and sample configurations to monitor MQTT broker and Greenwich devices
