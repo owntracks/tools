@@ -1,0 +1,35 @@
+define command{
+	command_name	check-gw-status-switched
+	command_line	PLUGINS/check_gw.py -m status -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$' -s
+	}
+
+define command{
+	command_name	check-gw-status-permanent
+	command_line	PLUGINS/check_gw.py -m status -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$' 
+	}
+
+define command{
+	command_name	check-gw-vbatt
+	command_line	PLUGINS/check_gw.py -m vbatt -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$'
+	}
+
+define command{
+	command_name	check-gw-vext-switched
+	command_line	PLUGINS/check_gw.py -m vext -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$' -s
+	}
+
+define command{
+	command_name	check-gw-vext-permanent
+	command_line	PLUGINS/check_gw.py -m vext -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$'
+	}
+
+define command{
+	command_name	check-gw-gpio7
+	command_line	PLUGINS/check_gw.py -m gpio7 -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$'
+	}
+
+define command{
+	command_name	check-gw-age
+	command_line	PLUGINS/check_gw.py -m age -h '$_HOSTBROKER$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' -t '$_HOSTTOPIC$' '$_HOSTTLS$' '$_HOSTCAFILE$'
+	}
+

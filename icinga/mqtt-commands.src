@@ -1,0 +1,4 @@
+define command{
+	command_name	check-mqtt
+	command_line	PLUGINS/check_mqtt.py -h '$HOSTADDRESS$' -p '$_HOSTPORTNO$' -u '$_HOSTUSER$' -w '$_HOSTPASSWORD$' '$_HOSTTLS$' '$_HOSTCAFILE$'
+	}

@@ -1,0 +1,27 @@
+define hostgroup {
+        hostgroup_name  owntracks-brokers
+		alias           All MQTT Brokers
+		members         broker1, broker2
+}
+
+define host {
+        use                     generic-host
+        host_name               broker1
+        address                 localhost
+	_user			user
+	_password		password
+	_portno			1883
+}
+
+define host {
+        use                     generic-host
+        host_name               broker2
+        address                 test.mosquitto.org
+	check_command           check-host-alive_4
+	_cafile			cafile.pem
+	_tls			-c 
+	_user			user
+	_password		password
+	_portno			8883
+	parents			broker1
+}

@@ -1,0 +1,40 @@
+define hostgroup {
+        hostgroup_name  owntracks-permanent
+		alias           All Test Greenwichs with permanent power
+		members         P1, P2
+}
+
+define hostgroup {
+        hostgroup_name  owntracks-switched
+		alias           All Test Greenwichs with switched power
+		members         P3, P4
+}
+
+define host {
+        use                     gw-generic-switched
+        host_name               P3
+        _topic			owntracks/gw/P3
+	parents			broker1
+}
+
+define host {
+        use                     gw-generic-switched
+        host_name               P4
+        _topic			owntracks/gw/P4
+	parents			broker2
+}
+
+define host {
+        use                     gw-generic-permanent
+        host_name               P1
+        _topic                 	owntracks/gw/P1
+	parents			broker1
+}
+
+define host {
+        use                     gw-generic-permanent
+        host_name               P2
+        _topic                 	owntracks/gw/P2
+	parents			broker2
+}
+
