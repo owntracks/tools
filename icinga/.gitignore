@@ -1,5 +1,6 @@
+config.mk
 gw-hosts.cfg
-mqtt-host.cfg
+mqtt-hosts.cfg
 gw-commands.cfg
 gw-generic.cfg
 mqtt-commands.cfg

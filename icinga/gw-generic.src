@@ -16,10 +16,10 @@ define host{
 		notification_options            d,u,r
 		contact_groups                  admins
         register                        0       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL HOST, JUST A TEMPLATE!
-	_user				USER
-	_password			PASSWORD
-	_portno				PORTNO
-	_broker				BROKER
+	_user				%USER
+	_password			%PASSWORD
+	_portno				%PORTNO
+	_broker				%BROKER
         }
 
 define host{
@@ -38,8 +38,8 @@ define host{
 		notification_options            d,u,r
 		contact_groups                  admins
         register                        0       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL HOST, JUST A TEMPLATE!
-	_user				USER
-	_password			PASSWORD
-	_portno				PORTNO
-	_broker				BROKER
+	_user				%USER
+	_password			%PASSWORD
+	_portno				%PORTNO
+	_broker				%BROKER
         }

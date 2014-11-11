@@ -2,17 +2,17 @@ include config.mk
 
 ALLPLUGINS =  check_gw.py check_mqtt.py
 ALLOBJECTS = gw-commands.cfg mqtt-commands.cfg gw-generic.cfg
-ALLCONFIGS = gw-hosts.cfg mqtt-hosts.cfg gw-services.cfg
+ALLCONFIGS = gw-hosts.cfg mqtt-hosts.cfg gw-services.cfg mqtt-services.cfg
 
 all : $(ALLPLUGINS) $(ALLOBJECTS) $(ALLCONFIGS)
 
 
 %.cfg: %.src  config.mk Makefile *.src
-	sed -e s#PLUGINS#$(PLUGINS)# \
-		-e s#USER#$(USER)# \
-		-e s#PORTNO#$(PORTNO)# \
-		-e s#BROKER#$(BROKER)# \
-		-e s#PASSWORD#$(PASSWORD)# \
+	sed -e s#%PLUGINS#$(PLUGINS)# \
+		-e s#%USER#$(USER)# \
+		-e s#%PORTNO#$(PORTNO)# \
+		-e s#%BROKER#$(BROKER)# \
+		-e s#%PASSWORD#$(PASSWORD)# \
 		$< > $@
 
 clean :
