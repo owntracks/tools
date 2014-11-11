@@ -4,12 +4,10 @@
 
 INSTALL?=install
 
-#PLUGINS=/usr/lib/nagios/plugins
-#OBJECTS=/etc/icinga/objects
-PLUGINS=/tmp
-OBJECTS=/tmp
+PLUGINS=/usr/lib/nagios/plugins
+OBJECTS=/etc/icinga/objects
 
 USER=user
-PASSWORD=pass
+PASSWORD=password
 PORTNO=1883
 BROKER=localhost
