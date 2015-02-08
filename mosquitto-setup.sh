@@ -57,6 +57,8 @@ do
 	fi
 done
 
+[ -d $MOSQHOME ] || mkdir $MOSQHOME
+
 # User that owns mosquitto directory that we're targeting
 MOSQUSER=`ls -ld $MOSQHOME | awk '{print $3}'`
 
