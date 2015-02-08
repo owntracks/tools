@@ -57,6 +57,7 @@ do
 	fi
 done
 
+# Fall back to default /tmp/mosquitto and create this location if it doesn't exist
 [ -d $MOSQHOME ] || mkdir $MOSQHOME
 
 # User that owns mosquitto directory that we're targeting
@@ -78,9 +79,6 @@ fi
 
 # Export environment variable to be used in subsequent (generate-CA.sh)
 export MOSQUITTOUSER
-
-# Fall back to default /tmp/mosquitto and create this location if it doesn't exist
-[ -d $MOSQHOME ] || mkdir $MOSQHOME
 
 # Concat of path and configuration file
 MOSQPATH=$MOSQHOME/$MOSQCONF
