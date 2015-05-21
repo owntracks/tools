@@ -56,7 +56,7 @@ DIR=${TARGET:='.'}
 # may be empty ""
 ALTHOSTNAMES=${HOSTLIST}
 ALTADDRESSES=${IPLIST}
-CA_ORG='/O=MQTTitude.org/emailAddress=nobody@example.net'
+CA_ORG='/O=OwnTracks.org/OU=generate-CA/emailAddress=nobody@example.net'
 CA_DN="/CN=An MQTT broker${CA_ORG}"
 CACERT=${DIR}/ca
 SERVER="${DIR}/${host}"
@@ -154,8 +154,8 @@ if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
 	%%% authorityKeyIdentifier  = keyid,issuer:always
 	%%% subjectAltName          = $ENV::SUBJALTNAME
 	%%% # issuerAltName           = issuer:copy
-	%%% nsCaRevocationUrl       = http://mqttitude.org/carev/
-	%%% nsRevocationUrl         = http://mqttitude.org/carev/
+	%%% ## nsCaRevocationUrl       = http://mqttitude.org/carev/
+	%%% ## nsRevocationUrl         = http://mqttitude.org/carev/
 	%%% certificatePolicies     = ia5org,@polsection
 	%%% 
 	%%% [polsection]
@@ -165,7 +165,7 @@ if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
 	%%% 
 	%%% [notice]
 	%%% explicitText            = "This CA is for a local MQTT broker installation only"
-	%%% organization            = "MQTTitude"
+	%%% organization            = "OwnTracks"
 	%%% noticeNumbers           = 1
 
 
