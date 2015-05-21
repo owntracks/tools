@@ -65,6 +65,12 @@ keybits=2048
 openssl=$(which openssl)
 MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
 
+# Signature Algorithm. To find out which are supported by your
+# version of OpenSSL, run `openssl dgst -help`
+#
+# defaultmd="-sha256"
+defaultmd="-sha512"
+
 function maxdays() {
 	nowyear=$(date +%Y)
 	years=$(expr 2032 - $nowyear)
@@ -111,7 +117,7 @@ fi
 
 if [ ! -f $CACERT.crt ]; then
 	# Create un-encrypted (!) key
-	$openssl req -newkey rsa:${keybits} -x509 -nodes -days $days -extensions v3_ca -keyout $CACERT.key -out $CACERT.crt -subj "${CA_DN}"
+	$openssl req -newkey rsa:${keybits} -x509 -nodes $defaultmd -days $days -extensions v3_ca -keyout $CACERT.key -out $CACERT.crt -subj "${CA_DN}"
 	echo "Created CA certificate in $CACERT.crt"
 	$openssl x509 -in $CACERT.crt -nameopt multiline -subject -noout
 
@@ -124,7 +130,7 @@ fi
 if [ ! -f $SERVER.key ]; then
 	echo "--- Creating server key and signing request"
 	$openssl genrsa -out $SERVER.key $keybits
-	$openssl req -new \
+	$openssl req -new $defaultmd \
 		-out $SERVER.csr \
 		-key $SERVER.key \
 		-subj "${SERVER_DN}"
@@ -169,7 +175,7 @@ if [ -f $SERVER.csr -a ! -f $SERVER.crt ]; then
 	export SUBJALTNAME		# Use environment. Because I can. ;-)
 
 	echo "--- Creating and signing server certificate"
-	$openssl x509 -req \
+	$openssl x509 -req $defaultmd \
 		-in $SERVER.csr \
 		-CA $CACERT.crt \
 		-CAkey $CACERT.key \
