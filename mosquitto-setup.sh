@@ -134,3 +134,4 @@ sed -Ee 's/^[ 	]+%%% //' <<!ENDMOSQUITTOCONF > $MOSQPATH
 !ENDMOSQUITTOCONF
 
 chmod 640 $MOSQPATH
+echo "Please adjust certfile and keyfile path names in $MOSQPATH"
