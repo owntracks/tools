@@ -11,3 +11,7 @@ Utility to create TLS CA Certificate and server certificate for OwnTracks
 ### icinga/
 
 Icinga / Nagios check scripts and sample configurations to monitor MQTT broker and Greenwich devices
+
+### message-feeds/
+
+experimental message feeds for OwnTracks (GeoHash) Messaging
