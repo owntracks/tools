@@ -114,7 +114,6 @@ sed -Ee 's/^[ 	]+%%% //' <<!ENDMOSQUITTOCONF > $MOSQPATH
 	%%% #acl_file jp.acl
 	%%% 
 	%%% persistence true
-	%%% persistence_location /tmp/
 	%%% persistence_file mosquitto.db
 	%%% persistent_client_expiration 1m
 	%%% 
