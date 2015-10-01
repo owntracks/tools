@@ -75,9 +75,11 @@ openssl=$(which openssl)
 MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
 
 # Signature Algorithm. To find out which are supported by your
-# version of OpenSSL, run `openssl dgst -help`
+# version of OpenSSL, run `openssl dgst -help` and set your
+# signature algorithm here. For example:
 #
-# defaultmd="-sha256"
+#	defaultmd="-sha256"
+#
 defaultmd="-sha512"
 
 function maxdays() {
