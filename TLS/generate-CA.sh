@@ -225,7 +225,7 @@ else
 	#                            
 
 	if [ ! -f $CLIENT.key ]; then
-		echo "--- Creating server key and signing request"
+		echo "--- Creating client key and signing request"
 		$openssl genrsa -out $CLIENT.key $keybits
 
 		CNF=`mktemp /tmp/cacnf-req.XXXXXXXX` || { echo "$0: can't create temp file" >&2; exit 1; }
