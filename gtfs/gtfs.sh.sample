@@ -1,0 +1,6 @@
+#!/bin/sh
+export APIKEY=<your api key from mta.info>
+export USER=<your mqtt userid>
+export PASS=<your mqtt password>
+export MATCH="6" # the string of the route_id to match in order to limit updates
+python gtfs.py

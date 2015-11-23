@@ -15,3 +15,8 @@ Icinga / Nagios check scripts and sample configurations to monitor MQTT broker a
 ### message-feeds/
 
 experimental message feeds for OwnTracks (GeoHash) Messaging
+
+### General Transit Feed Specification (GTFS)
+
+Via GTFS static and realtime Transit information is available.
+A demo for NYC public transport.
