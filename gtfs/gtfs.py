@@ -25,7 +25,7 @@ def on_connect(client, userdata, flags, rc):
         connected = True
 
 def on_publish(client, userdata, mid):
-        print("published(%d)" % mid)
+        #print("published(%d)" % mid)
         global sent
         sent = sent + 1
 
@@ -45,6 +45,7 @@ client.loop_start()
 
 while connected == False:
 	print 'connecting'
+	sleep(1)
 
 agency_id = 'agency_id'
 
@@ -59,8 +60,8 @@ reader = csv.reader(input)
 for line in reader:
 	(agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone)=line
 	payloaddict = dict(_type='agency',agency_id = agency_id, agency_name = agency_name, agency_url = agency_url, agency_timezone = agency_timezone, agency_lang = agency_lang ,agency_phone = agency_phone)
-	#client.publish('gtfs/%s' % (agency_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-	print 'pub: ' + 'gtfs/%s' % (agency_id)
+	#client.publish('gtfs/%s' % (agency_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+	#print 'pub: ' + 'gtfs/%s' % (agency_id)
 input.close()
 
 input = open('stops.txt', 'rb')
@@ -72,16 +73,16 @@ for line in reader:
 	#print "%s %s %s" % (stop_id, stop_lat, stop_lon)
 	payloaddict = dict(_type='stop',stop_id = stop_id, stop_code = stop_code, stop_name = stop_name, stop_desc = stop_desc, stop_lat = stop_lat ,stop_lon = stop_lon,zone_id = zone_id,stop_url = stop_url,location_type = location_type ,parent_station = parent_station)
 	stops[stop_id] = payloaddict
-	#client.publish('gtfs/%s/stops/%s' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-	print 'pub: ' + 'gtfs/%s/stops/%s' % (agency_id, stop_id)
+	#client.publish('gtfs/%s/stops/%s' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+	#print 'pub: ' + 'gtfs/%s/stops/%s' % (agency_id, stop_id)
 
 	if parent_station == '':
 		payloaddict = dict(_type='location', tid = stop_id, lat = stop_lat, lon = stop_lon,parent_station = parent_station, tst = tst)
-		#client.publish('owntracks/%s/%s' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-		print 'pub: ' + 'owntracks/%s/%s' % (agency_id, stop_id)
+		#client.publish('owntracks/%s/%s' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+		#print 'pub: ' + 'owntracks/%s/%s' % (agency_id, stop_id)
 		payloaddict = dict(_type='card', name = stop_name)
-		#client.publish('owntracks/%s/%s/info' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-		print 'pub: ' + 'owntracks/%s/%s/info' % (agency_id, stop_id)
+		#client.publish('owntracks/%s/%s/info' % (agency_id, stop_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+		#print 'pub: ' + 'owntracks/%s/%s/info' % (agency_id, stop_id)
 input.close()
 
 input = open('trips.txt', 'rb')
@@ -90,8 +91,10 @@ for line in reader:
 	(route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id)=line
 	payloaddict = dict(_type='trip',route_id = route_id, service_id = service_id, trip_id = trip_id, trip_headsign = trip_headsign, direction_id = direction_id ,block_id = block_id,shape_id = shape_id)
 	trips[trip_id[13:]] = payloaddict
-	#client.publish('gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-	print 'pub: ' + 'gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id)
+	#client.publish('gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+	#print 'pub: ' + 'gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id)
+	client.publish('ontracks/%s/%s' % (agency_id, trip_id[13:]), payload=None, qos=0, retain=True)
+	print 'pub: ' + 'owntracks/%s/%s' % (agency_id, trip_id)
 input.close()
 
 input = open('routes.txt', 'rb')
@@ -99,8 +102,8 @@ reader = csv.reader(input)
 for line in reader:
 	(route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color)=line
 	payloaddict = dict(_type='route',route_id = route_id, agency_id = agency_id, route_short_name = route_short_name, route_long_name = route_long_name, route_desc = route_desc ,route_type = route_type,route_url = route_url, route_color = route_color, route_text_color = route_text_color)
-	#client.publish('gtfs/%s/routes/%s' % (agency_id, route_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-	print 'pub: ' + 'gtfs/%s/routes/%s' % (agency_id, route_id)
+	#client.publish('gtfs/%s/routes/%s' % (agency_id, route_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+	#print 'pub: ' + 'gtfs/%s/routes/%s' % (agency_id, route_id)
 input.close()
 
 while True:
@@ -110,7 +113,7 @@ while True:
 	print 'parsing'
 	feed.ParseFromString(response.read())
 	for entity in feed.entity:
-		#print entity
+		print entity
 		if entity.HasField('trip_update'):
 			trip_update = entity.trip_update
 			#print trip_update
@@ -120,42 +123,47 @@ while True:
 				trip_id = trip.trip_id
 				route_id = trip.route_id
 				if route_id == match:
-					print trip
+					#print trip_id
 					for StopTimeUpdate in trip_update.stop_time_update:
-						print StopTimeUpdate
+						#print StopTimeUpdate
 						stop_id = StopTimeUpdate.stop_id
 						if StopTimeUpdate.HasField('arrival'):
 							arrival = StopTimeUpdate.arrival
-							print arrival
+							#print arrival
 							if arrival.HasField('time'):
-								print time
+								#print time
 								time = arrival.time
 								stop = stops[stop_id]
 								stop_lat = stop['stop_lat']							
 								stop_lon = stop['stop_lon']							
-								print stop_lat, stop_lon
-								payloaddict = dict(_type='location', tid = route_id, lat = stop_lat, lon = stop_lon, tst = time)
-								client.publish('owntracks/%s/%s' % (agency_id, trip_id), payload=json.dumps(payloaddict), qos=2, retain=True)
-								print 'pub: ' + 'owntracks/%s/%s' % (agency_id, trip_id)
-								print trip_id
+								#print stop_lat, stop_lon
 								trip = trips.get(trip_id)
-								print trip
 								if trip != None:
+									direction_id = trip['direction_id']
 									trip_headsign = trip['trip_headsign']							
 									payloaddict = dict(_type='card', name = trip_headsign)
-									client.publish('owntracks/%s/%s/info' % (agency_id, trip_id), payload=json.dumps(payloaddict), qos=2, retain=True)
+									client.publish('owntracks/%s/%s/info' % (agency_id, trip_id), payload=json.dumps(payloaddict), qos=0, retain=True)
 									print 'pub: ' + 'owntracks/%s/%s/info' % (agency_id, trip_id)
+								else:
+									direction_id = 0
+								if direction_id == 0:
+									cog = 0
+								else:
+									cog = 180
+								payloaddict = dict(_type='location', tid = route_id, lat = stop_lat, lon = stop_lon, tst = time, cog = cog)
+								client.publish('owntracks/%s/%s' % (agency_id, trip_id), payload=json.dumps(payloaddict), qos=0, retain=True)
+								print 'pub: ' + 'owntracks/%s/%s' % (agency_id, trip_id)
 								break
 
 
-	for n in range(1, 12):
+	for n in range(1, 6):
 		print 'sleeping'
-		sleep(5)
+		sleep(10)
 
 client.disconnect()
 while disconnected == False:
 	print "disconnecting"
-
+	sleep(1)
 
 
 
