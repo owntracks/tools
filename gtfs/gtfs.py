@@ -93,8 +93,8 @@ for line in reader:
 	trips[trip_id[13:]] = payloaddict
 	#client.publish('gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id), payload=json.dumps(payloaddict), qos=0, retain=True)
 	#print 'pub: ' + 'gtfs/%s/routes/%s/%s' % (agency_id, route_id, trip_id)
-	client.publish('ontracks/%s/%s' % (agency_id, trip_id[13:]), payload=None, qos=0, retain=True)
-	print 'pub: ' + 'owntracks/%s/%s' % (agency_id, trip_id)
+	#client.publish('ontracks/%s/%s' % (agency_id, trip_id[13:]), payload=None, qos=0, retain=True)
+	#print 'pub: ' + 'owntracks/%s/%s' % (agency_id, trip_id)
 input.close()
 
 input = open('routes.txt', 'rb')
