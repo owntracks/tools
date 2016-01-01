@@ -1,7 +1,7 @@
 #!/bin/bash
 #(@)generate-CA.sh - Create CA key-pair and server key-pair signed by CA
 
-# Copyright (c) 2013-2015 Jan-Piet Mens <jpmens()gmail.com>
+# Copyright (c) 2013-2016 Jan-Piet Mens <jpmens()gmail.com>
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
