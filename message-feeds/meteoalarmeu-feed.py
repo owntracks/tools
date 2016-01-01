@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 __author__    = 'Christoph Krey <krey.christoph()gmail.com>'
-__copyright__ = 'Copyright 2015 Christoph Krey, OwnTracks'
+__copyright__ = 'Copyright 2015-2016 Christoph Krey, OwnTracks'
 __license__   = """Eclipse Public License - v 1.0 (http://www.eclipse.org/legal/epl-v10.html)"""
 
 import Geohash
