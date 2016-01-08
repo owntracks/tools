@@ -29,9 +29,9 @@ RUN chown owntracks /usr/local/bin/ocat /usr/local/sbin/ot-recorder
 RUN chgrp owntracks /usr/local/bin/ocat /usr/local/sbin/ot-recorder
 RUN chmod 7111 /usr/local/bin/ocat /usr/local/sbin/ot-recorder
 
-RUN adduser --system --home / --shell /bin/bash --gecos 'JP Mens' jpmens
-RUN usermod --groups owntracks jpmens
-RUN echo "jpmens:doc" | chpasswd
+#RUN adduser --system --home / --shell /bin/bash --gecos 'JP Mens' jpmens
+#RUN usermod --groups owntracks jpmens
+#RUN echo "jpmens:xxx" | chpasswd
 
 RUN mkdir -p /var/run/sshd /var/log/supervisor
 
