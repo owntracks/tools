@@ -17,8 +17,6 @@ mkdir -p /owntracks/certs
 
 if [ -d /owntracks/certs ]; then
 	cd /owntracks/certs
-	export IPLIST="127.0.0.1"
-	export HOSTLIST="a.example.com"
 
 	host=${MQTTHOSTNAME:=$(hostname)}
 	echo "*** Using $host as hostname for server certificate"
