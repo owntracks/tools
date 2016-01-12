@@ -18,6 +18,10 @@ mkdir -p /owntracks/certs
 if [ -d /owntracks/certs ]; then
 	cd /owntracks/certs
 
+	# We prefer the the environment's (-e) MQTTHOSTNAME value.
+	# Note, that generate-CA.sh will also consume $IPLIST and
+	# $HOSTLIST, both of which may contain space-separated values.
+
 	host=${MQTTHOSTNAME:=$(hostname)}
 	echo "*** Using $host as hostname for server certificate"
 	/usr/local/sbin/generate-CA.sh ${host}
@@ -32,7 +36,10 @@ fi
 mkdir -p /owntracks/mosquitto
 chown mosquitto:mosquitto /owntracks/mosquitto
 
-# Prime Mosquitto's configuration in volume if it doesn't yet exist
+# Prime Mosquitto's configuration in volume if it doesn't yet exist there.
+# Mosquitto will launch with that, allowing the admin to modify config
+# if necessary/desired.
+
 if [ ! -f /owntracks/mosquitto/mosquitto.conf ]; then
 	cp /etc/mosquitto/mosquitto.conf /owntracks/mosquitto/mosquitto.conf
 fi
