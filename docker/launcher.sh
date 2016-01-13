@@ -43,5 +43,8 @@ chown mosquitto:mosquitto /owntracks/mosquitto
 if [ ! -f /owntracks/mosquitto/mosquitto.conf ]; then
 	cp /etc/mosquitto/mosquitto.conf /owntracks/mosquitto/mosquitto.conf
 fi
+if [ ! -f /owntracks/mosquitto/mosquitto.acl ]; then
+	cp /etc/mosquitto/mosquitto.acl /owntracks/mosquitto/mosquitto.acl
+fi
 
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
