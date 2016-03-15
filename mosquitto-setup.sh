@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #(@)mosquitto-setup.sh - Create a basic Mosquitto configuration w/ TLS
 
 # Copyright (c) 2013 Jan-Piet Mens <jpmens()gmail.com>
