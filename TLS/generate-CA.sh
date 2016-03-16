@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #(@)generate-CA.sh - Create CA key-pair and server key-pair signed by CA
 
 # Copyright (c) 2013-2016 Jan-Piet Mens <jpmens()gmail.com>
