@@ -20,3 +20,8 @@ experimental message feeds for OwnTracks (GeoHash) Messaging
 
 Via GTFS static and realtime Transit information is available.
 A demo for NYC public transport.
+
+### Google/import-location-history.py
+Reads a JSON export of Google Location History from
+[Google Takeout](https://takeout.google.com/settings/takeout) and publishes all of its locations
+to MQTT. Useful for importing Google Location History into OwnTracks Recorder
