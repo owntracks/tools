@@ -115,7 +115,7 @@ function addresslist() {
 	for h in $(echo ${ALTHOSTNAMES}); do
 		ALIST="${ALIST}DNS:$h,"
 	done
-	ALIST="${ALIST}DNS:localhost"
+	ALIST="${ALIST}DNS:${host},DNS:localhost"
 	echo $ALIST
 
 }
