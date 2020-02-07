@@ -30,6 +30,9 @@
 # 
 # Modifications: Louis T. Getterman IV (@LTGIV) / GotGetLLC.com / opensour.cc
 
+echo "This program ($0) is deprecated; if you get it working, please submit patches."
+exit 2
+
 # Replace set -e and exit with non-zero status if we experience a failure
 trap 'exit' ERR
 
