@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #(@)generate-CA.sh - Create CA key-pair and server key-pair signed by CA
 
-# Copyright (c) 2013-2016 Jan-Piet Mens <jpmens()gmail.com>
+# Copyright (c) 2013-2020 Jan-Piet Mens <jpmens()gmail.com>
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ CA_DN="/CN=An MQTT broker${CA_ORG}"
 CACERT=${DIR}/ca
 SERVER="${DIR}/${host}"
 SERVER_DN="/CN=${host}$CA_ORG"
-keybits=2048
+keybits=4096
 openssl=$(which openssl)
 MOSQUITTOUSER=${MOSQUITTOUSER:=$USER}
 
@@ -121,6 +121,8 @@ function addresslist() {
 }
 
 days=$(maxdays)
+
+server_days=825	# https://support.apple.com/en-us/HT210176
 
 if [ -n "$CAKILLFILES" ]; then
 	rm -f $CACERT.??? $SERVER.??? $CACERT.srl
@@ -178,6 +180,7 @@ if [ $kind == 'server' ]; then
 		%%% basicConstraints        = critical,CA:false
 		%%% nsCertType              = server
 		%%% keyUsage                = nonRepudiation, digitalSignature, keyEncipherment
+		%%% extendedKeyUsage        = serverAuth
 		%%% nsComment               = "Broker Certificate"
 		%%% subjectKeyIdentifier    = hash
 		%%% authorityKeyIdentifier  = keyid,issuer:always
@@ -210,7 +213,7 @@ if [ $kind == 'server' ]; then
 			-CAcreateserial \
 			-CAserial "${DIR}/ca.srl" \
 			-out $SERVER.crt \
-			-days $days \
+			-days $server_days \
 			-extfile ${CNF} \
 			-extensions JPMextensions
 
